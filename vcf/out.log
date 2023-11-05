@@ -1,0 +1,13 @@
+
+VCFtools - 0.1.17
+(C) Adam Auton and Anthony Marcketta 2009
+
+Parameters as interpreted:
+	--gzvcf resultchrall_ronbunyouAfterDNBseqNew.vcf.gz
+	--maf 0.1
+	--thin 20000
+	--max-missing 0.9
+	--recode
+	--stdout
+
+Error: Can't determine file type of resultchrall_ronbunyouAfterDNBseqNew.vcf.gz
