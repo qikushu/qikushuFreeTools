@@ -173,16 +173,22 @@ manhattan2 = function (x, chr = "CHR", bp = "BP", p = "P", snp = "SNP", col = NU
 
 
 # 特定の位置に該当するSNPsを抽出する関数
-extract_snps <- function(df, positions) {
+extract_snps <- function(df, positions, threshold = NULL) {
   extracted_snps <- vector("list", length(positions))
   names(extracted_snps) <- sapply(positions, function(pos) paste(pos$chr, pos$range, sep = "_"))
 
   for (i in seq_along(positions)) {
     pos <- positions[[i]]
     chr_range <- as.numeric(unlist(strsplit(pos$range, "-")))
-    extracted_snps[[i]] <- df[df$CHR == as.numeric(pos$chr) & df$BP >= chr_range[1] & df$BP <= chr_range[2], "SNP"]
+    filtered_df <- df[df$CHR == as.numeric(pos$chr) & df$BP >= chr_range[1] & df$BP <= chr_range[2], ]
+
+    if (!is.null(threshold)) {
+      filtered_df <- filtered_df[filtered_df$P < threshold, ]
+    }
+
+    extracted_snps[[i]] <- filtered_df$SNP
   }
   
   return(extracted_snps)
 }
-                                  
+                   
